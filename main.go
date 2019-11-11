@@ -24,6 +24,6 @@ func main() {
 	}
 	elapsed := time.Since(start).Seconds()
 	fmt.Println(elapsed)
-	time.Sleep(time.Second * 5)
+	time.Sleep(time.Second * 3)
 
 }
