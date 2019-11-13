@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	start := time.Now()
+	//	start := time.Now()
 	b, err := ioutil.ReadFile("./ip")
 	if err != nil {
 		fmt.Println("1111111111", err)
@@ -22,8 +22,8 @@ func main() {
 		go p1.Goping(j)
 
 	}
-	elapsed := time.Since(start).Seconds()
-	fmt.Println(elapsed)
+	//	elapsed := time.Since(start).Seconds()
+	//	fmt.Println(elapsed)
 	time.Sleep(time.Second * 3)
 
 }

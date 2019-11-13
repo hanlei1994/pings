@@ -100,20 +100,32 @@ func sendICMPRequest(icmp ICMP, destAddr *net.IPAddr) (Res, error) {
 func Goping(ip string) {
 
 	host := ip
-	raddr, err := net.ResolveIPAddr("ip", host)
+	iaddh, err := net.ResolveIPAddr("ip", host)
 	if err != nil {
 		fmt.Printf("Fail to resolve %s, %s\n", host, err)
 		return
 	}
 
-	for i := 1; i < 2; i++ {
-		res1, _ := sendICMPRequest(getICMP(uint16(i)), raddr)
+	failnum := 0
+	successnum := 0
+
+	for i := 1; i < 4; i++ {
+		res1, _ := sendICMPRequest(getICMP(uint16(i)), iaddh)
 		if res1.FailIp != nil {
-			fmt.Println(res1.FailIp, "ping is  fail ")
+			failnum = failnum + 1
 		} else {
-			fmt.Println(res1.From, "ping is successful ")
+			successnum = successnum + 1
+		}
+
+		if successnum == 3 {
+			fmt.Println(iaddh, "ping is successful ")
+		} else if failnum == 1 {
+			fmt.Println(iaddh, "ping is fail or error ")
 		}
 
 		time.Sleep(1 * time.Microsecond)
 	}
 }
+
+//	fmt.Println(res1.FailIp, "ping is  fail ")
+//	fmt.Println(res1.From, "ping is successful ")
